@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="onepushApp">
+  <head>
+    <title>OnePush</title>
+    <link rel="stylesheet" href="/stylesheets/screen.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/loading-bar.min.css" />
+    <link rel="stylesheet" href="/css/sweetalert.css" />
+    <script src="js/tether.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/loading-bar.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-2.0.1.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+  </head>
+  <body ng-controller="parentController">
+      <div id="loading-bar-container"></div>
+      <div class="container-fluid">
+          <header>
+            <nav class="navbar navbar-light ">
+              <a class="navbar-brand" href="#">
+                <img src="/img/icon.PNG" class="inline-block">
+                <span class="inline-block brand-name">OnePush</span>
+                <span class="inline-block brand-desc">- finding the best online website!</span>
+              </a>
+              <span class="web-count pull-right" ng-if="data.website_count">
+                  We've found <strong>{{data.website_count}}</strong> personal web portfolio
+              </span>
+            </nav>
+          </header>
+          <section class="main">
+            <div class="row">
+              <div class="col-md-9 col-xs-12 col-sm-12 website-listing">
+                  <div class="form-group web-autocomplete">
+                      <input type="email" class="form-control" id="autoComplete" placeholder="Search (by title, url or tag)">
+                  </div>
+                  <div class="web-listing-item" ng-repeat="website in data.website_list" id="{{website.id}}">
+                    <div class="avatar inline-block">
+                      <img class="img-rounded" ng-src="{{website.favicon_image}}">
+                    </div>
+                    <div class="website-info inline-block">
+                      <div class="website-name"><a ng-href="{{website.url_address}}" target="_blank">{{website.title}}</a></div>
+                      <div class="website-details">
+                          <div class="tag inline">
+                              <span class="fa fa-tag"></span>
+                              <span class="tag-info">{{website.tag}}</span>
+                          </div>
+                          <span class="separator">|</span>
+                          <div class="link inline">
+                              <span class="fa fa-link"></span>
+                              <a ng-href="{{website.url_address}}" target="_blank">{{website.url_address}}</a>
+                          </div>
+                          <div class="likes inline pull-right">
+                              <span class="separator">|</span>
+                              <span class="fa fa-thumbs-o-up" ng-click="increment(website)"></span>
+                              <span class="tag-info" ng-init="likeCount(website)">{{website.likes?website.likes:0}}</span>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <ul ng-if="data.website_count" uib-pagination total-items="data.website_count" ng-model="data.currentPendingPage" max-size="10" items-per-page="5" class="pagination" boundary-links="true" force-ellipses="true" rotate="true"  previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;" ng-change="getMoreWebsites()"></ul>
+              </div>
+              <div class="col-md-3 col-xs-12 col-sm-12 add-website">
+                <form name="addwebsiteForm" ng-submit="addWebsite()">
+                    <h4>Contribute / Add Website </h4>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-cs" name="title"  placeholder="title" ng-model="newWebsite.title" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="url" class="form-control form-control-cs" name="web"  placeholder="web/url address" ng-model="newWebsite.url" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-cs" name="tag"  placeholder="tag" ng-model="newWebsite.tag" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><span class="fa fa-plus"></span> Push Website</button>
+                </form>
+              </div>
+            </div>
+          </section>
+      </div>
+  </body>
+</html>
