@@ -16,6 +16,7 @@
     <script src="js/loading-bar.min.js"></script>
     <script src="js/ui-bootstrap-tpls-2.0.1.min.js"></script>
     <script src="js/sweetalert.min.js"></script>
+    <script src="js/jquery.autocomplete.js"></script>
   </head>
   <body ng-controller="parentController">
       <div id="loading-bar-container"></div>
@@ -36,7 +37,7 @@
             <div class="row">
               <div class="col-md-9 col-xs-12 col-sm-12 website-listing">
                   <div class="form-group web-autocomplete">
-                      <input type="email" class="form-control" id="autoComplete" placeholder="Search (by title, url or tag)">
+                      <input type="text" class="form-control" id="autoComplete" placeholder="Search (by title, url or tag)">
                   </div>
                   <div class="web-listing-item" ng-repeat="website in data.website_list" id="{{website.id}}">
                     <div class="avatar inline-block">
